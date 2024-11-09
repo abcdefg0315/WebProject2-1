@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit User</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Edit User</h2>
+  <form id="editForm" name="editForm" action="edit_ok.jsp" method="post" onsubmit="return validateForm()">
+    <!-- 숨겨진 input으로 id 값 설정 -->
+    <input type="hidden" id="userId" name="id">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <input type="text" class="form-control" id="country" name="country" placeholder="Enter country">
+    </div>
+    <div class="form-group">
+      <label for="interest">Interest:</label>
+      <input type="text" class="form-control" id="interest" name="interest" placeholder="Enter interest">
+    </div>
+    <div class="form-group">
+      <label>Gender:</label><br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="male" name="gender" value="Male">
+        <label class="form-check-label" for="male">Male</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="female" name="gender" value="Female">
+        <label class="form-check-label" for="female">Female</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="createdDate">Created Date:</label>
+      <input type="date" class="form-control" id="createdDate" name="createdDate">
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="list.jsp" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+
+<script>
+  // URL의 쿼리 파라미터에서 'id' 값을 추출하는 함수
+  function getQueryParam(param) {
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // 숨겨진 input 필드에 'id' 값을 설정
+  document.getElementById('userId').value = getQueryParam('id');
+
+  // 폼 유효성 검사 함수
+  function validateForm() {
+    var name = document.forms["editForm"]["name"].value;
+    var country = document.forms["editForm"]["country"].value;
+    var interest = document.forms["editForm"]["interest"].value;
+    var gender = document.forms["editForm"]["gender"].value;
+    var createdDate = document.forms["editForm"]["createdDate"].value;
+
+    // 이름 유효성 검사
+    if (name.trim() === "") {
+      alert("Name is required.");
+      return false;
+    }
+
+    // 국가 유효성 검사
+    if (country.trim() === "") {
+      alert("Country is required.");
+      return false;
+    }
+
+    // 관심사 유효성 검사
+    if (interest.trim() === "") {
+      alert("Interest is required.");
+      return false;
+    }
+
+    // 성별 유효성 검사
+    if (!document.querySelector('input[name="gender"]:checked')) {
+      alert("Please select a gender.");
+      return false;
+    }
+
+    // 날짜 유효성 검사
+    if (createdDate === "") {
+      alert("Created Date is required.");
+      return false;
+    }
+
+    return true; // 모든 검사를 통과하면 폼 전송
+  }
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

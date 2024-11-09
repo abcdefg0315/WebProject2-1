@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title> <!-- 제목은 상황에 맞게 변경 -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Add User</h2> <!-- 제목은 상황에 맞게 변경 -->
+    <form name="userForm" id="userForm" action="write_ok.jsp" method="post" onsubmit="return validateForm(event)">
+        <!-- 숨겨진 input으로 id 값 설정 -->
+        <input type="hidden" id="userId" name="id">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+        </div>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" class="form-control" id="country" name="country" placeholder="Enter country">
+        </div>
+        <div class="form-group">
+            <label for="interest">Interest:</label>
+            <input type="text" class="form-control" id="interest" name="interest" placeholder="Enter interest">
+        </div>
+        <div class="form-group">
+            <label>Gender:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="male" name="gender" value="Male">
+                <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="female" name="gender" value="Female">
+                <label class="form-check-label" for="female">Female</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="createdDate">Created Date:</label>
+            <input type="date" class="form-control" id="createdDate" name="createdDate">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="list.jsp" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<!-- Form validation script -->
+<script>
+    function validateForm(event) {
+        event.preventDefault(); // 폼 전송을 막음
+
+        // 폼 요소 가져오기
+        var name = document.forms["userForm"]["name"].value;
+        var country = document.forms["userForm"]["country"].value;
+        var interest = document.forms["userForm"]["interest"].value;
+        var gender = document.forms["userForm"]["gender"].value;
+        var createdDate = document.forms["userForm"]["createdDate"].value;
+
+        // 유효성 검사
+        if (name.trim() === "") {
+            alert("Name is required.");
+            return false;
+        }
+        if (country.trim() === "") {
+            alert("Country is required.");
+            return false;
+        }
+        if (interest.trim() === "") {
+            alert("Interest is required.");
+            return false;
+        }
+        if (!gender) {
+            alert("Please select a gender.");
+            return false;
+        }
+        if (createdDate === "") {
+            alert("Created Date is required.");
+            return false;
+        }
+
+        // 모든 유효성 검사를 통과하면 폼을 전송
+        document.forms["userForm"].submit();
+    }
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
